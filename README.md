@@ -34,6 +34,13 @@ Login to keyclouk at http://localhost:8080 and the user and password in the dock
 ### Add a user
 ![alt text](img/keyclouk2.png "keyclouk")
 
+### Set longer times on tokens
+
+When we test lets have some longer running tokens so we have time to test them properly
+
+![alt text](img/keyclouk3.png "keyclouk")
+
+
 ## Lets try it out using Postman 
 https://www.postman.com/
 
@@ -58,7 +65,11 @@ As you se here we got a access_token back. this is the token we can use to acces
 ![alt text](img/postman3.png "postman")
 
 
+### Get back data
+When you call the backend you will get a json returning the user JWT info
 
+
+![alt text](img/jwt.png "postman")
 
 
 ## How do we verify the access

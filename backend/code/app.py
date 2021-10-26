@@ -15,11 +15,8 @@ def hello_world():
     token = request.headers['Authorization'].split(" ")
     jsonReturn= {}
     print(token[1])
-    try:
-        decoded = jwt.decode(token[1],key=None,options={"verify_signature":False},algorithms='RS256')
-        jsonReturn['jwt']= decoded
-    except:
-        print('Decoding jwt failed.')
+    decoded = jwt.decode(token[1],key=None,options={"verify_signature":False,"verify_aud": False,},algorithms='RS256')
+    jsonReturn['jwt']= decoded
     for header in request.headers:
         print(header)
         jsonReturn[header[0]]= header[1]
