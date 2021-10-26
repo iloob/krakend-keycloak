@@ -1,0 +1,79 @@
+{
+    "version": 2,
+    "name": "My lovely gateway",
+    "port": 8080,
+    "cache_ttl": "3600s",
+    "timeout": "3s",
+    "endpoints": [
+        {
+          "endpoint": "/json",
+          "method": "GET",
+          "backend": [
+            {
+              "url_pattern": "/todos/1",
+              "method": "GET",
+              "host": [
+                "https://jsonplaceholder.typicode.com"
+              ]
+            }
+          ]
+        },
+        {
+          "endpoint": "/",
+          "output_encoding": "no-op",
+          "method": "GET",
+          "backend": [
+            {
+              "url_pattern": "/",
+              "method": "GET",
+              "encoding": "no-op",
+              "host": [
+                "http://nginx"
+              ]
+            }
+          ]
+        },
+        {
+          "endpoint": "/backend",
+          "output_encoding": "no-op",
+
+          "extra_config": {
+              "github.com/devopsfaith/krakend-jose/validator": {
+                  "alg": "RS256",
+                  "jwk-url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+                  "disable_jwk_security": true
+              }
+          },
+          "backend": [
+              {
+                "host":["http://nginx"],
+                "url_pattern": "/backend",
+                "method": "GET",
+                "encoding": "no-op"
+              }
+          ]
+        },
+{
+          "endpoint": "/webb",
+          "output_encoding": "no-op",
+
+          "extra_config": {
+              "github.com/devopsfaith/krakend-jose/validator": {
+                  "alg": "RS256",
+                  "jwk-url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+                  "disable_jwk_security": true
+              }
+          },
+          "backend": [
+              {
+                "host":["http://nginx"],
+                "url_pattern": "/webb",
+                "method": "GET",
+                "encoding": "no-op"
+              }
+          ]
+        }
+
+
+        ]
+}
