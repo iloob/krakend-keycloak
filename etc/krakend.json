@@ -36,6 +36,9 @@
         {
           "endpoint": "/backend",
           "output_encoding": "no-op",
+          "headers_to_pass":[  
+            "*"
+      ],
 
           "extra_config": {
               "github.com/devopsfaith/krakend-jose/validator": {
@@ -46,8 +49,8 @@
           },
           "backend": [
               {
-                "host":["http://nginx"],
-                "url_pattern": "/backend",
+                "host":["http://backend"],
+                "url_pattern": "/",
                 "method": "GET",
                 "encoding": "no-op"
               }

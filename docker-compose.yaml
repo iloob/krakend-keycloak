@@ -44,7 +44,11 @@ services:
         - 8085:80
       volumes:
         - ./nginx:/usr/share/nginx/html
-
+  backend:
+      build: backend/
+      #volumes:
+      #  - ./backend:/code
+      #command: tail -f /etc/fstab
 
 
 
