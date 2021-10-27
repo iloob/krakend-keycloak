@@ -101,3 +101,28 @@ then config in krakend will protect the endpoint /webb
         }
 
 ```
+
+
+## Parse  
+We have added parse to test to migrate over from parse to keyclouk.
+I have found ni good way into connecting parse as a indetity provder to keyclouk its does not support any standrs OpenID
+
+```
+--dev
+```
+We run parse in dev mode so some security is turn off
+
+## Login into parse-dasbourd
+
+
+http://localhost:4040 admin/admin
+
+
+## Create users
+
+to create user run this curl 
+
+
+```
+curl -X POST -H "X-Parse-Application-Id: myAppId" -H "Content-Type: application/json" -d '{"username":"user","password":"user","email":"user@test.com"}' http://localhost:1337/parse/users
+```
