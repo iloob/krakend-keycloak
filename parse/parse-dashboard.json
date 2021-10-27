@@ -1,0 +1,2 @@
+{ "apps": [ { "serverURL": "http://localhost:1337/parse", "appId": "myAppId", "masterKey": "myMasterKey", "appName": "myAppId" }
+    ], "users": [ { "user": "admin", "pass": "admin" } ], "useEncryptedPasswords": false }

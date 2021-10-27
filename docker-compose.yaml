@@ -13,6 +13,11 @@ services:
       - ./etc/:/etc/krakend/
     depends_on:
       - nginx
+  backend:
+      build: backend/
+      #volumes:
+      #  - ./backend:/code
+      #command: tail -f /etc/fstab
   mysql:
       image: mysql:5.7
       volumes:
@@ -44,11 +49,49 @@ services:
         - 8085:80
       volumes:
         - ./nginx:/usr/share/nginx/html
-  backend:
-      build: backend/
-      #volumes:
-      #  - ./backend:/code
-      #command: tail -f /etc/fstab
+  mongodb:
+    image: docker.io/bitnami/mongodb:4.2
+    #volumes:
+    #  - 'mongodb_data:/bitnami/mongodb'
+    environment:
+      - MONGODB_USERNAME=bn_parse
+      - MONGODB_DATABASE=bitnami_parse
+      - MONGODB_PASSWORD=bitnami123
+      - MONGODB_ROOT_PASSWORD=rootpassword
+  parse:
+    image: parseplatform/parse-server
+    #volumes:
+    #  - 'parse_data:/bitnami/parse'
+    depends_on:
+      - mongodb
+    ports:
+      - '1337:1337'
+    command: --appId myAppId --masterKey myMasterKey --databaseURI mongodb://bn_parse:bitnami123@mongodb/bitnami_parse
+    environment:
+      - PARSE_DATABASE_HOST=mongodb
+      - PARSE_DATABASE_PORT_NUMBER=27017
+      - PARSE_DATABASE_USER=bn_parse
+      - PARSE_DATABASE_NAME=bitnami_parse
+      - PARSE_DATABASE_PASSWORD=bitnami123
+  parse-dashbourd:
+    image: parseplatform/parse-dashboard
+    ports:
+      - '4040:4040'
+    #volumes:
+    #  - 'parse_data:/bitnami/parse'
+    command: --dev
+    depends_on:
+      - parse
+    volumes:
+      - ./parse/parse-dashboard.json:/src/Parse-Dashboard/parse-dashboard-config.json   
+    environment:
+      - PORT=4040
+      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
+      - ALLOW_INSECURE_HTTP=1
+      #- MOUNT_PATH="/parse"
+
+
+
 
 
 
